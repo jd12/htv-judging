@@ -11,18 +11,17 @@ services:
         value: production
 
   # ── Frontend (Vite React static site) ─────────────────────────────────────
-  - type: web
+  # NOTE: After deploying the API above, copy its URL and set VITE_API_URL
+  # in the Render dashboard under htv-judging-client → Environment.
+  # Example: VITE_API_URL = https://htv-judging-api.onrender.com
+  - type: static
     name: htv-judging-client
-    runtime: static
     rootDir: client
     buildCommand: npm install && npm run build
     staticPublishPath: ./dist
     envVars:
       - key: VITE_API_URL
-        fromService:
-          name: htv-judging-api
-          type: web
-          property: host
+        value: https://htv-judging-api.onrender.com  # REPLACE with your actual API URL
     routes:
       - type: rewrite
         source: /*

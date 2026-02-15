@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 
 // ─── API HELPERS ──────────────────────────────────────────────────────────────
-const API = import.meta.env.VITE_API_URL || "";
+const API = ""; // same-origin: server serves both API and frontend
 
 async function apiFetch(path, opts = {}) {
   const res = await fetch(`${API}${path}`, {

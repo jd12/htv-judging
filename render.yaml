@@ -1,21 +1,9 @@
 services:
   - type: web
-    name: htv-judging-api
+    name: htv-judging
     runtime: node
-    buildCommand: cd server && npm install
+    buildCommand: cd client && npm install && npm run build && cd ../server && npm install
     startCommand: cd server && node index.js
     envVars:
       - key: NODE_ENV
         value: production
-
-  - type: static
-    name: htv-judging-client
-    buildCommand: cd client && npm install && npm run build
-    staticPublishPath: client/dist
-    envVars:
-      - key: VITE_API_URL
-        value: https://htv-judging-api.onrender.com
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html

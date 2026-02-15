@@ -1,27 +1,20 @@
 services:
-  # ── Backend API (Node/Express) ─────────────────────────────────────────────
   - type: web
     name: htv-judging-api
     runtime: node
-    rootDir: server
-    buildCommand: npm install
-    startCommand: node index.js
+    buildCommand: cd server && npm install
+    startCommand: cd server && node index.js
     envVars:
       - key: NODE_ENV
         value: production
 
-  # ── Frontend (Vite React static site) ─────────────────────────────────────
-  # NOTE: After deploying the API above, copy its URL and set VITE_API_URL
-  # in the Render dashboard under htv-judging-client → Environment.
-  # Example: VITE_API_URL = https://htv-judging-api.onrender.com
   - type: static
     name: htv-judging-client
-    rootDir: client
-    buildCommand: npm install && npm run build
-    staticPublishPath: ./dist
+    buildCommand: cd client && npm install && npm run build
+    staticPublishPath: client/dist
     envVars:
       - key: VITE_API_URL
-        value: https://htv-judging-api.onrender.com  # REPLACE with your actual API URL
+        value: https://htv-judging-api.onrender.com
     routes:
       - type: rewrite
         source: /*
